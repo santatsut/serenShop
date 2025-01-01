@@ -1,0 +1,408 @@
+#root {
+  margin:0px;
+  padding: 0px;
+  width: 100%;
+  height: 100vh;
+}
+
+/* Navigation bar and logo */
+
+h2 {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navBar {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: bisque;
+  width: 100%;
+  height: 100px;
+}
+
+.title {
+  font-family: none;
+  text-align: center;
+  flex:1;
+}
+
+.leftBar {
+  display: flex;
+  flex-direction: row;
+  flex:1;
+  justify-content: center;
+}
+
+.leftBar h2 {
+  margin: 10px;
+}
+
+#rightBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex:1;
+}
+
+#profileIcon {
+  max-width: 50px;
+  max-height: 50px;
+  margin: 0px;
+  cursor: pointer;
+}
+
+/* log in/sign up window */
+
+.activeLogInWindow {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: space-around;
+  opacity: 1;
+  background-color: rgba(255, 255, 255);
+  border-radius: 10px;
+  width: 300px;
+  height: 400px;
+  padding: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.activeLogInWindow form {
+  display: flex;
+  flex-direction: column;
+  z-index: 5000;
+}
+
+.activeLogInWindow h2 {
+  font-size: 24px;
+}
+
+.logInWindow {
+  display: none;
+  opacity: 0;
+}
+
+#email {
+  width: 200px;
+  height: 25px;
+  margin: 0px auto 25px auto;
+}
+
+#password {
+ width: 200px;
+ height: 25px;
+ margin: 0px auto 25px auto;
+}
+
+#bagIcon {
+  width: 50px !important;
+  height: 50px;
+  margin: 0px;
+}
+
+.cartBag {
+  display: inline-block; /* Ensures the Link wraps around the icon correctly */
+  text-decoration: none; /* Remove any underline if it’s applied */
+}
+
+.searchBarInactive {
+  height: 25px;
+  width: 450px;
+  border-radius: 15px;
+  border: none;
+  padding: 5px 5px 5px 8px;
+}
+
+.searchBarActive {
+  height: 25px;
+  width: 450px;
+  border-radius: 15px 15px 0px 0px;
+  border: none;
+  padding: 5px 5px 5px 8px;
+}
+
+#search:focus {
+  outline : none;
+}
+
+.searchInactive {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  opacity: 0;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+#searchItems li {
+  margin-left: 5px;
+}
+
+.searchActive {
+  display:flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: white;
+  width: 454px;
+  height: fit-content;
+  opacity: 1;
+  text-decoration: none;
+  list-style-type: none;
+  z-index: 100;
+}
+
+
+/* tags */
+.filters {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 40%;
+  margin: auto;
+  flex-wrap: wrap;
+  cursor: pointer;
+  color: whitesmoke;
+  background-color: rgba(255, 228, 196, 0.945);
+
+}
+
+.dropdown {
+  display: none;
+  width: 2000px;
+  height: 0vh;
+  opacity: 0;
+}
+
+.visible {
+  z-index: 500;
+  animation-name: dropdown;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  animation-fill-mode: forwards;
+  animation-duration: 2s;
+  display: flex;
+  width: 2000px;
+  max-height: 40vh;
+  opacity: 1;
+  color:black;
+}
+
+.visibleText {
+  opacity: 1 !important;
+  z-index: 1000;
+  position: absolute;
+}
+
+.dropdown ul {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  list-style: none;
+  text-decoration: none;
+  font-size: 18px;
+  opacity: 0;
+  cursor: pointer;
+  
+}
+
+.dropdown ul li:hover {
+  opacity: 0.6;
+}
+
+/* background images */
+.bigPicture1, .bigPicture2 {
+  display: flex;
+  position: absolute;
+  width: 50%;
+  max-height: 100vh;
+  z-index: -5;
+  object-fit: cover;
+  object-position: top;
+  padding: 0px;
+  margin: 0px;
+}
+
+.bigPicture1 {
+  left:0px;
+}
+
+.bigPicture2 {
+  right: 0px;
+}
+
+.topPart {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 100px;
+}
+
+/* filter section */
+
+.sectionChangeActive {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: bisque;
+  flex-direction: row;
+  padding: 25px;
+  margin-bottom: 50px;
+}
+.sectionChangeInactive {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  padding: 25px;
+  margin-bottom: 50px;
+}
+
+/* midpart */
+
+.midPart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.line {
+  width: 500px;
+  height: 3px;
+  background-color: black;
+}
+
+/* slideshow */
+/*
+.prev, .next {
+  max-width: 80px;
+  max-height:50px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.slideshow {
+  display: flex;
+  margin: auto;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 80vw;
+  height: 70vh;
+  margin-bottom: 25px;
+}
+
+.slideImage {
+  max-width: 400px;
+}
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+  */
+  
+.newFashion {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 50px;
+}
+
+.storageItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  margin-left:100px;
+}
+
+.storageItemImage {
+  max-width: 200px;
+  max-height: 300px;
+  object-fit: cover;
+}
+
+/* popular */
+
+.popular {
+  display: flex;
+  position: relative;
+  max-width: 80vw;
+  flex-wrap: wrap;
+  margin: auto;
+  margin-top: 25px;
+}
+
+.popularImg {
+  max-width: 300px;
+  cursor: pointer;
+}
+.popular img:hover {
+  opacity: 0.85;
+  filter: grayscale(0.2);
+}
+
+/* footer */
+
+.footer {
+  padding: 40px;
+  margin: 25px 0px;
+  background-color: rgb(218, 218, 218);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.footer ul {
+  text-decoration: none;
+  list-style: none;
+  padding-bottom: 4px;
+}
+
+.footerText, .footerText:link, .footerText:visited {
+  color: rgb(27, 27, 27);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 4px; /* The distance between text and underline */
+}
+
+.footerText::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  background-image: linear-gradient(90deg, white, white); /* underline color */
+  background-size: 0 2px; /* vertical size of underline */
+  background-repeat: no-repeat;
+  background-position: left bottom; /* start position of underline */
+  transition: background-size .3s ease-in; /* duration and timing style of animation */
+  color: black;
+  text-decoration: none;
+}
+
+.footerText:hover::before {
+  background-size: 100% 2px;
+  text-decoration: none;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes dropdown {
+  0% {
+    height: 0vh;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    height: 40vh;
+  }
+}
