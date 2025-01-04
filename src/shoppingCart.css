@@ -1,0 +1,177 @@
+#root {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  height: 100vh;
+}
+
+/* Navigation bar and logo */
+
+h2 {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navBar {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: bisque;
+  width: 100%;
+  height: 100px;
+}
+
+.title {
+  font-family: none;
+  text-align: center;
+  flex: 1;
+}
+
+.leftBar {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  justify-content: center;
+}
+
+.leftBar h2 {
+  margin: 10px;
+}
+
+#rightBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+#profileIcon {
+  max-width: 50px;
+  max-height: 50px;
+  margin: 0px;
+}
+
+#bagIcon {
+  width: 50px !important;
+  height: 50px;
+  margin: 0px;
+}
+
+.cartBag {
+  display: inline-block; /* Ensures the Link wraps around the icon correctly */
+  text-decoration: none; /* Remove any underline if it’s applied */
+}
+
+.searchBarInactive {
+  height: 25px;
+  width: 450px;
+  border-radius: 15px;
+  border: none;
+  padding: 5px 5px 5px 8px;
+}
+
+.searchBarActive {
+  height: 25px;
+  width: 450px;
+  border-radius: 15px 15px 0px 0px;
+  border: none;
+  padding: 5px 5px 5px 8px;
+}
+
+#search:focus {
+  outline: none;
+}
+
+.searchInactive {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  opacity: 0;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+#searchItems li {
+  margin-left: 5px;
+}
+
+.searchActive {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: white;
+  width: 454px;
+  height: fit-content;
+  opacity: 1;
+  text-decoration: none;
+  list-style-type: none;
+  z-index: 100;
+}
+
+.title {
+  color: black;
+  cursor: pointer;
+}
+
+.filters {
+  color: black;
+}
+
+.shoppingCart {
+  display: flex;
+  align-items: center;
+  height: 80%;
+  width: 100%;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+.shoppingCart::-webkit-scrollbar {
+  display: none;
+}
+
+
+.cartItem {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: space-around;
+  background-color: white;
+  border-bottom: 1px solid black;
+  padding: 5px;
+  max-height: 300px;
+  width: 80%;
+  flex-direction: row;
+  margin-bottom: 50px;
+  top: 150px;
+  
+}
+
+.cartItemImage {
+  max-width: 100px;
+}
+
+.cartItem button {
+  height: 50px;
+  background-color: bisque;
+}
+
+#size {
+  font-size: 24px;
+}
+
+#goShopping, #checkout {
+  display: flex;
+  justify-self: center;
+  align-self: center;
+  margin-top: 20px;
+  background-color: black;
+  color: whitesmoke;
+  margin-top: 20px;
+  
+}
+
+.topPartShoppingCart {
+  position: relative;
+  width: 100%;
+  height: 5%;
+}
