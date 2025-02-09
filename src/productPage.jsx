@@ -88,8 +88,6 @@ function ProductPage() {
     <>
     <div className="navBar">
     <div className="leftBar">
-      <h2>contact</h2>
-      <h2>about</h2>
       <img src="./src/assets/person.svg" alt="person" id="profileIcon" />
     </div>
     <Link to='/' id="title">
@@ -133,9 +131,9 @@ function ProductPage() {
         <img src={data.image} alt="product" className="productImage" />
         <div className="productDetails">
           <h1>{data.name}</h1>
-          <p>{`${data.price}kr`}</p>
+          <p id="price">{`${data.price}kr`}</p>
           <div>
-            <p>välj storlek: </p>
+            <p>Choose Size: </p>
             <div className="sizes">
               <button onClick={() => changeSize('xs')} style={{ backgroundColor: size === 'xs' ? 'black' : 'white', color: size === 'xs' ? 'white' : 'black' }}>XS</button>
               <button onClick={() => changeSize('s')} style={{ backgroundColor: size === 's' ? 'black' : 'white', color: size === 's' ? 'white' : 'black' }}>S</button>

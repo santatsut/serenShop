@@ -79,6 +79,44 @@ app.get('/storageGet', async (req, res) => {
   }
 });
 
+app.get('/usersGet', async (req, res) => {
+  let connection;
+  try {
+    connection = await mysql.createConnection(dbConfig);
+
+    const query = `SELECT gmail, username FROM users`;
+    const [results] = await connection.execute(query);
+
+    res.json(results);
+  } catch (error) {
+    console.error('Error fetching cart items:', error);
+    res.status(500).json({ message: 'Error fetching cart items', error: error.message });
+  } finally {
+    if (connection) await connection.end();
+  }
+});
+
+app.post('/addUser', async (req, res) => {
+  const { gmail, password, username, year } = req.body;
+  let connection;
+  try {
+    console.log('attempting to connect...');
+    connection = await mysql.createConnection(dbConfig);
+    console.log('connected')
+    console.log(`Received: ${gmail}, ${password}, ${username}, ${year}`);
+    
+    // Insert query to add the cart item
+    const query = `INSERT INTO users (gmail, password, username, year) VALUES (?, ?, ?, ?)`;
+    const [result] = await connection.execute(query, [gmail, password, username, year]);
+    
+    // Send a success response
+    res.status(201).json({ message: 'added user', id: result.insertId });
+  } catch (error) {
+    res.status(500).json({ message: 'Error adding user', error: error.message });
+  } finally {
+    if (connection) await connection.end();
+  }
+});
 
 app.delete('/api/cartDelete/:id', async (req, res) => {
   const { id } = req.params;

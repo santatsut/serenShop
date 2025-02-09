@@ -119,15 +119,13 @@ function Cart() {
     <>
       <div className="navBar">
         <div className="leftBar">
-          <h2>contact</h2>
-          <h2>about</h2>
           <img
             src="/src/assets/person.svg"
             alt="Profile Icon"
             id="profileIcon"
           />
         </div>
-        <Link to='/' id="title" className="title">
+        <Link to='/' id="title">
           <h1 className="title">SEREN</h1>
         </Link>
         <div id="rightBar">
@@ -166,7 +164,7 @@ function Cart() {
           cartItems.map((item) => (
             <div key={item.id} className="cartItem">
               <img src={item.path} alt={item.name} className="cartItemImage" />
-              <h3>{item.name}</h3>
+              <h3 id="itemName">{item.name}</h3>
               <p id="size">{item.size}</p>
               <p>{item.price}kr</p>
               <p>Quantity: {item.quantity}</p>

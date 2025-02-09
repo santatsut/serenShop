@@ -118,30 +118,6 @@ function Home() {
     dropdownRef.current.classList.remove("visible");
   };
 
-  const items = ["sandals", "shoes", "hat", "shirt"];
-  const [inputValue, setInputValue] = useState("");
-  const [filteredItems, setFilteredItems] = useState(items);
-  const [isActive, setIsActive] = useState(false);
-
-  const toggleClass = () => {
-    setIsActive(!isActive);
-  };
-
-  const handleInputChange = (event) => {
-    const inputValue = event.target.value;
-    setInputValue(event.target.value);
-
-    if (inputValue === "") {
-      setFilteredItems(items);
-    } else {
-      const matchedItems = items.filter((item) =>
-        item.toLowerCase().includes(inputValue.toLowerCase())
-      );
-      setFilteredItems(matchedItems);
-    }
-    console.log(inputValue);
-  };
-
   const [activeWindow, setActiveWindow] = useState(false);
 
   const logIn = () => {
@@ -199,36 +175,98 @@ function Home() {
       });
   }, []);
 
-  const buttonStyle = {
-      width: "30px",
-      background: 'none',
-      border: '0px'
-    };
+  const items = storageItems.map((item) => item.name);
+  const [inputValue, setInputValue] = useState("");
+  const [filteredItems, setFilteredItems] = useState(items);
+  const [isActive, setIsActive] = useState(false);
 
-    const properties = {
-        prevArrow: <button style={{ ...buttonStyle }}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#fff"><path d="M242 180.6v-138L0 256l242 213.4V331.2h270V180.6z"/></svg></button>,
-        nextArrow: <button style={{ ...buttonStyle }}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#fff"><path d="M512 256L270 42.6v138.2H0v150.6h270v138z"/></svg></button>
+  const handleInputChange = (event) => {
+    const inputValue = event.target.value;
+    setInputValue(event.target.value);
+    if (inputValue.length > 0) {
+      setIsActive(true);
     }
+    else {
+      setIsActive(false);
+    }
+    if (inputValue === "") {
+      setFilteredItems(items);
+    } else {
+      const matchedItems = items.filter((item) =>
+        item.toLowerCase().includes(inputValue.toLowerCase())
+      );
+      setFilteredItems(matchedItems);
+    }
+    console.log(inputValue);
+  };
+
+
+  const [signUp, setSignUp] = useState(null);
+  const [gmail, setGmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [username, setUsername] = useState("")
+  const [year, setYear] = useState(0)
+  const [shownUsername, setShowUsername] = useState("")
+
+  const verification = () => {
+    axios.get('http://localhost:5000/usersGet')
+      .then((response) => {
+        console.log("Fetched data:", response.data);
+        
+        // Check if the response contains a user with the specified gmail
+        const user = response.data.find((item) => item.gmail === gmail);
+  
+        if (!response.data || response.data.length === 0) {
+          setSignUp(true); // No users found, allow sign-up
+          console.log("No users found, sign-up enabled.");
+        } else if (user) {
+          setSignUp(false); // User found, prevent sign-up
+          setShowUsername(user.username); // Set the username of the found user
+          console.log("Logged in as:", user.username);
+          setActiveWindow(false);
+        } else {
+          setSignUp(true); // Gmail not found, allow sign-up
+          console.log("Gmail not found, sign-up enabled.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching users:", error);
+      });
+  };
+  
+
+  const addUser = () => {
+    axios.post('http://localhost:5000/addUser', {
+      gmail: gmail,
+      password: password,
+      username: username,
+      year: year
+    })
+   .then(function (response) {
+     console.log("User added successfully");
+    })
+   .catch(function (error) {
+     console.error("Error adding user:", error);
+    });
+  }
 
   return (
     <>
       <div className="navBar">
         <div className="leftBar">
-          <h2>contact</h2>
-          <h2>about</h2>
           <img src="/src/assets/person.svg" alt="Profile Icon" id="profileIcon" onClick={() => {setActiveWindow(!activeWindow )}}/>
+          <p>{shownUsername}</p>
         </div>
         <h1 className="title">SEREN</h1>
         <div id="rightBar">
-          <div className="bg">
+          <div className="searchFunction">
             <input
               type="text"
-              className={isActive ? "searchBarActive" : "searchBarInactive"}
+              className="searchBarInactive"
               placeholder="search"
               id="search"
               value={inputValue}
               onChange={handleInputChange}
-              onClick={toggleClass}
             ></input>
             <div
               id="searchItems"
@@ -254,23 +292,75 @@ function Home() {
       </div>
 
       <div className={activeWindow ? "activeLogInWindow" : "logInWindow"}>
-        <h2>Log In</h2>
-        <form>
-          <input
-            type="text"
-            placeholder="Email"
-            id="email"
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            id="password"
-            required
-          />
-          <button type="submit">Log In</button>
-        </form>
-        <p>Don't have an account? Sign Up <Link to="/signup">here</Link></p>
+          <div className={signUp ? "signingIn" : "notSigningIn"}>
+            <div className="topSignUp">
+              <h3>Sign Up</h3>
+              <div className="closeButton" onClick={() => {setActiveWindow(!activeWindow)}}>X</div>
+            </div>
+            <form className="signupForm">
+            <label htmlFor="email">gmail:</label>
+            <input
+              type="text"
+              name = "email"
+              placeholder="Email"
+              id="signupGmail"
+              value={gmail}
+              onChange={(e) => {setGmail(e.target.value)}}
+              required
+            />
+            <label htmlFor="password">password:</label>
+            <input
+              type="password"
+              name = "password"
+              placeholder="Password"
+              id="password"
+              value={password}
+              onChange={(e) => {setPassword(e.target.value)}}
+              required
+              />
+            <label htmlFor="username">username:</label>
+            <input
+              type="text"
+              name = "username"
+              placeholder="Username"
+              id="username"
+              value={username}
+              onChange={(e) => {setUsername(e.target.value)}}
+              required
+              />
+              <label htmlFor="year">Year:</label>
+              <input
+                type="number"
+                name = "year"
+                placeholder="Year"
+                id="year"
+                value={year}
+                onChange={(e) => {setYear(e.target.value)}}
+                required
+                />
+            <button type="button" onClick={addUser}>Continue</button>
+          </form>
+
+          </div>
+
+        <div className={signUp ? "notLoggingIn" : "loggingIn"}>
+          <div className="topLogIn">
+            <div className="closeButton" onClick={() => {setActiveWindow(!activeWindow)}}>X</div>
+            <h3>Log In </h3>
+          </div>
+          <form className="loginForm">
+          <p>Login or signup using Gmail</p>
+            <input
+              type="text"
+              placeholder="Email"
+              id="email"
+              value={gmail}
+              onChange={(e) => {setGmail(e.target.value)}}
+              required
+            />
+            <button type="button" onClick={verification} onKeyDown={e => e.key === 'Enter' ? verification: ''}>Continue</button>
+          </form>
+        </div>
       </div>
 
       <div className="topPart">
@@ -352,7 +442,6 @@ function Home() {
         </button>
       </div> 
       */}
-    
         <div className="newFashion">
           {storageItems.length > 0 ? (
             storageItems.map((item) => (
@@ -453,53 +542,17 @@ function Home() {
       <div className="footer">
         <ul>
           <li>
-            <a className="footerText" href="">xxxxxxx</a>
-          </li>
-          <li>
-            <a className="footerText" href="">xxxxxxx</a>
-          </li>
-          <li>
-            <a className="footerText" href="">xxxxxxx</a>
-          </li>
-          <li>
-            <a className="footerText" href="">xxxxxxx</a>
-          </li>
-          <li>
-            <a className="footerText" href="">xxxxxxx</a>
+            <a className="footerText" href="">Om SerenShop</a>
           </li>
         </ul>
         <ul>
           <li>
-            <a className="footerText" href="">xxxxxxx</a>
-          </li>
-          <li>
-            <a className="footerText" href="">xxxxxxx</a>
-          </li>
-          <li>
-            <a className="footerText" href="">xxxxxxx</a>
-          </li>
-          <li>
-            <a className="footerText" href="">xxxxxxx</a>
-          </li>
-          <li>
-            <a className="footerText" href="">xxxxxxx</a>
+            <a className="footerText" href="">Contact us</a>
           </li>
         </ul>
         <ul>
           <li>
-            <a className="footerText" href="">xxxxxxx</a>
-          </li>
-          <li>
-            <a className="footerText" href="">xxxxxxx</a>
-          </li>
-          <li>
-            <a className="footerText" href="">xxxxxxx</a>
-          </li>
-          <li>
-            <a className="footerText" href="">xxxxxxx</a>
-          </li>
-          <li>
-            <a className="footerText" href="">xxxxxxx</a>
+            <a className="footerText" href="">Help</a>
           </li>
         </ul>
       </div>

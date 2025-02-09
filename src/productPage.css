@@ -5,6 +5,10 @@
     margin-top: 100px;
 }
 
+a#title {
+    flex: 1;
+  }
+
 .productPage {
     display: flex;
     position: relative;
@@ -51,4 +55,9 @@
     border: 1px solid black;
     color: white;
     outline: none;
+}
+
+#price {
+    font-weight: bold;
+    font-size: 20px;
 }
