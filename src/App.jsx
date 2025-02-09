@@ -9,9 +9,9 @@ function App() {
       <Router>
         <Routes>
           {/* Define Routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/shop" element={<ProductPage />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/serenShop/" element={<Home />} />
+          <Route path="/serenShop/shop" element={<ProductPage />} />
+          <Route path="/serenShop/cart" element={<Cart />} />
         </Routes>
       </Router>
     </>
