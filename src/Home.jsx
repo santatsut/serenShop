@@ -4,15 +4,9 @@ import axios from "axios";
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import "./Home.css";
+import styles from "./Slider.module.css";
 
 //npm run dev for startup
-
-const images = [
-  "/src/assets/brownShirt.jpg",
-  "/src/assets/whiteShirt.jpg",
-  "/src/assets/blackCroppedShirt.jpg",
-  // Add more image paths here
-];
 
 const blazers = [
   "/src/assets/greyBlazer.jpg",
@@ -163,18 +157,22 @@ function Home() {
       break;
   }
 
+  const [slideImages, setSlideImages] = useState([]);
   const [storageItems, setStorageItems] = useState([]);
+  
   useEffect(() => {
-    axios.get('http://localhost:5000/storageGet')
+    axios.get('http://localhost:5000/serenShop/storageGet')
       .then((response) => {
-        console.log("Cart items fetched:", response.data);
-        setStorageItems(response.data); // Update state with the fetched items
+        setStorageItems(response.data); // First update storageItems
+  
+        // Update slideImages immediately after setting storageItems
+        setSlideImages(response.data.map(item => item.path));
       })
       .catch((error) => {
         console.error("Error fetching cart items:", error);
       });
   }, []);
-
+  
   const items = storageItems.map((item) => item.name);
   const [inputValue, setInputValue] = useState("");
   const [filteredItems, setFilteredItems] = useState(items);
@@ -250,11 +248,13 @@ function Home() {
     });
   }
 
+  if (slideImages.length === 0) return <p>Loading slides...</p>;
+
   return (
     <>
       <div className="navBar">
         <div className="leftBar">
-          <img src="/src/assets/person.svg" alt="Profile Icon" id="profileIcon" onClick={() => {setActiveWindow(!activeWindow )}}/>
+          <img src="./src/assets/person.svg" alt="Profile Icon" id="profileIcon" onClick={() => {setActiveWindow(!activeWindow )}}/>
           <p>{shownUsername}</p>
         </div>
         <h1 className="title">SEREN</h1>
@@ -279,11 +279,11 @@ function Home() {
                 : null}
             </div>
           </div>
-          <Link to="/cart" className="cartBag" state={{
+          <Link to="/serenShop/cart" className="cartBag" state={{
             cart: 'hellooooo'
           }}>
             <img
-              src="/src/assets/shoppingBagIcon.svg"
+              src="./src/assets/shoppingBagIcon.svg"
               alt="shopping bag"
               id="bagIcon"
             />
@@ -364,8 +364,8 @@ function Home() {
       </div>
 
       <div className="topPart">
-        <img src="/src/assets/bgPic1.jpg" alt="" className="bigPicture1" />
-        <img src="/src/assets/bgPic2.jpg" alt="" className="bigPicture2" />
+        <img src="./src/assets/bgPic1.jpg" alt="" className="bigPicture1" />
+        <img src="./src/assets/bgPic2.jpg" alt="" className="bigPicture2" />
         <div className="filters">
           <h2 className="tags" onMouseEnter={() => handleMouseEnter("men")}>
             Mens
@@ -417,7 +417,36 @@ function Home() {
         <h2>NEW FASHION</h2>
       </div>
 
+      <div className={styles.container}>
+        <Slide easing="ease">
+          {storageItems.map((slide, index) => (
+            <div className={styles.slide} key={slide}>
+              <div
+                style={{ backgroundImage: `url(${slideImages[index]})` }}
+              >
+                <span>Slide {index + 1}</span>
+              </div>
+            </div>
+          ))}
+        </Slide>
+      </div>
+
+
+
       {/*
+
+<Slide easing="ease" slidesToShow={3}> 
+  {slideImages.map((image, index) => (
+    <div className={styles.slide} key={index}>
+      <img 
+        src={image} 
+        alt={`Slide ${index + 1}`} 
+        style={{ width: "100%", height: "300px", objectFit: "cover" }}
+      />
+    </div>
+  ))}
+</Slide>
+
       <div className="slideshow">
         <button className="prev" onClick={goToPrevious}>
           ❮
@@ -441,7 +470,6 @@ function Home() {
           ❯
         </button>
       </div> 
-      */}
         <div className="newFashion">
           {storageItems.length > 0 ? (
             storageItems.map((item) => (
@@ -455,6 +483,8 @@ function Home() {
               </div>
             )}
         </div>  
+      
+      */}
 
       <div className="midPart">
         <div className="line"></div>
@@ -463,75 +493,75 @@ function Home() {
 
       <div className="popular">
         <Link
-          to="/shop" state={{id: 1}}
+          to="/serenShop/shop" state={{id: 1}}
         >
           <img
-            src="/src/assets/brownShirt.jpg"
+            src="./src/assets/brownShirt.jpg"
             alt="brown shirt"
             className="popularImg"
           />
         </Link>
         <Link
-          to="/shop" state={{id: 2}}
+          to="/serenShop/shop" state={{id: 2}}
         >
           <img
-            src="/src/assets/whiteShirt.jpg"
+            src="./src/assets/whiteShirt.jpg"
             alt="white shirt"
             className="popularImg"
           />
         </Link>
         <Link
-          to="/shop" state={{id: 3}}
+          to="/serenShop/shop" state={{id: 3}}
         >
           <img
-            src="/src/assets/blackCroppedShirt.jpg"
+            src="./src/assets/blackCroppedShirt.jpg"
             alt="black cropped shirt"
             className="popularImg"
           />
         </Link>
-        <Link to="/shop">
+        <Link to="/serenShop/shop">
           <img
             src="./src/assets/brownShirt.jpg"
             alt="brown shirt"
             className="popularImg"
           />
         </Link>
-        <Link to="/shop">
+        <Link to="/serenShop/shop">
           <img
             src="./src/assets/brownShirt.jpg"
             alt="brown shirt"
             className="popularImg"
           />
         </Link>
-        <Link to="/shop">
+        <Link to="/serenShop/shop">
           <img
             src="./src/assets/brownShirt.jpg"
             alt="brown shirt"
             className="popularImg"
           />
         </Link>
-        <Link to="/shop">
+        <Link to="/serenShop/shop">
           <img
             src="./src/assets/brownShirt.jpg"
             alt="brown shirt"
             className="popularImg"
           />
         </Link>
-        <Link to="/shop">
+        <Link to="/serenShop/shop">
           <img
             src="./src/assets/brownShirt.jpg"
             alt="brown shirt"
             className="popularImg"
           />
         </Link>
-        <Link to="/shop">
+        <Link to="/serenShop/shop">
           <img
             src="./src/assets/brownShirt.jpg"
             alt="brown shirt"
             className="popularImg"
           />
         </Link>
-        <Link to="/shop">
+        <Link to="/serenShop/shop">
           <img
             src="./src/assets/brownShirt.jpg"
             alt="brown shirt"

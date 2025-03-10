@@ -9,58 +9,6 @@ function Cart() {
   const location = useLocation();
   const { cart } = location.state || {}; // Destructure the passed state
 
-  const [isHovered, setIsHovered] = useState("");
-  const menRef = useRef(null);
-  const womenRef = useRef(null);
-  const childrenRef = useRef(null);
-  const unisexRef = useRef(null);
-  const dropdownRef = useRef(null);
-
-  const handleMouseEnter = (tag) => {
-    setIsHovered(tag);
-    dropdownRef.current.classList.add("visible");
-
-    if (tag === "men" && menRef.current) {
-      menRef.current.classList.add("visibleText");
-      womenRef.current.classList.remove("visibleText");
-      childrenRef.current.classList.remove("visibleText");
-      unisexRef.current.classList.remove("visibleText");
-    } else if (tag === "women" && womenRef.current) {
-      womenRef.current.classList.add("visibleText");
-      menRef.current.classList.remove("visibleText");
-      childrenRef.current.classList.remove("visibleText");
-      unisexRef.current.classList.remove("visibleText");
-    } else if (tag === "children" && childrenRef.current) {
-      childrenRef.current.classList.add("visibleText");
-      menRef.current.classList.remove("visibleText");
-      womenRef.current.classList.remove("visibleText");
-      unisexRef.current.classList.remove("visibleText");
-    } else if (tag === "unisex" && unisexRef.current) {
-      unisexRef.current.classList.add("visibleText");
-      womenRef.current.classList.remove("visibleText");
-      childrenRef.current.classList.remove("visibleText");
-      menRef.current.classList.remove("visibleText");
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered("");
-    if (menRef.current) {
-      menRef.current.classList.remove("visibleText");
-    }
-    if (womenRef.current) {
-      womenRef.current.classList.remove("visibleText");
-    }
-    if (childrenRef.current) {
-      childrenRef.current.classList.remove("visibleText");
-    }
-    if (unisexRef.current) {
-      unisexRef.current.classList.remove("visibleText");
-    }
-
-    dropdownRef.current.classList.remove("visible");
-  };
-
   const items = ["sandals", "shoes", "hat", "shirt"];
   const [inputValue, setInputValue] = useState("");
   const [filteredItems, setFilteredItems] = useState(items);
@@ -88,7 +36,7 @@ function Cart() {
 
   const [cartItems, setCartItems] = useState([]);
   useEffect(() => {
-    axios.get('http://localhost:5000/cartGet')
+    axios.get('http://localhost:5000/serenShop/cartGet')
       .then((response) => {
         console.log("Cart items fetched:", response.data);
         setCartItems(response.data); // Update state with the fetched items
@@ -102,7 +50,7 @@ function Cart() {
     // Handle item deletion
     const handleRemoveItem = (id) => {
       axios
-        .delete(`http://localhost:5000/api/cartDelete/${id}`)
+        .delete(`http://localhost:5000/serenShop/api/cartDelete/${id}`)
         .then(() => {
           // Remove the item from the local state
           setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
@@ -120,12 +68,12 @@ function Cart() {
       <div className="navBar">
         <div className="leftBar">
           <img
-            src="/src/assets/person.svg"
+            src="./src/assets/person.svg"
             alt="Profile Icon"
             id="profileIcon"
           />
         </div>
-        <Link to='/' id="title">
+        <Link to='/serenShop/' id="title">
           <h1 className="title">SEREN</h1>
         </Link>
         <div id="rightBar">
@@ -150,9 +98,9 @@ function Cart() {
                 : null}
             </div>
           </div>
-          <Link to="/cart" className="cartBag">
+          <Link to="/serenShop/cart" className="cartBag">
             <img
-              src="/src/assets/shoppingBagIcon.svg"
+              src="./src/assets/shoppingBagIcon.svg"
               alt="shopping bag"
               id="bagIcon"
             />
@@ -174,7 +122,7 @@ function Cart() {
         ) : (
           <div>
             <h3>Seems like your cart is empty</h3>
-            <Link to='/'>
+            <Link to='/serenShop/'>
               <button id="goShopping">GO SHOPPING</button>
             </Link>
           </div>

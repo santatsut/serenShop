@@ -43,7 +43,7 @@ function ProductPage() {
   // Fetch the data for the product when the component is mounted
   useEffect(() => {
     if (productId) {
-      axios.get(`http://localhost:5000/api/data/${productId}`)
+      axios.get(`http://localhost:5000/serenShop/api/data/${productId}`)
         .then((response) => {
           console.log(response.data); // Logs the fetched data
           setData(response.data); // Store the data in the state
@@ -73,7 +73,7 @@ function ProductPage() {
       quantity: 1,
     };
 
-    axios.post("http://localhost:5000/cart", cartData) // Replace with your endpoint
+    axios.post("http://localhost:5000/serenShop/cart", cartData) // Replace with your endpoint
       .then((response) => {
         console.log("Item added to cart:", response.data);
         console.log("Item added to cart!");
@@ -90,7 +90,7 @@ function ProductPage() {
     <div className="leftBar">
       <img src="./src/assets/person.svg" alt="person" id="profileIcon" />
     </div>
-    <Link to='/' id="title">
+    <Link to='/serenShop/' id="title">
         <h1 className="title">SEREN</h1>
     </Link>
     <div id="rightBar">
@@ -115,11 +115,11 @@ function ProductPage() {
             : null}
         </div>
       </div>
-      <Link to="/cart" className="cartBag" state={{
+      <Link to="../serenShop/cart" className="cartBag" state={{
             cart: 'hellooooo'
           }}>
             <img
-              src="/src/assets/shoppingBagIcon.svg"
+              src="./src/assets/shoppingBagIcon.svg"
               alt="shopping bag"
               id="bagIcon"
             />

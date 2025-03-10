@@ -22,7 +22,7 @@ const dbConfig = {
 };
 
 // Endpoint to add an item to the cart
-app.post('/cart', async (req, res) => {
+app.post('/serenShop/cart', async (req, res) => {
   const { image, size, price, name, quantity } = req.body;
 
   // Create MySQL connection
@@ -45,7 +45,7 @@ app.post('/cart', async (req, res) => {
   }
 });
 
-app.get('/cartGet', async (req, res) => {
+app.get('/serenShop/cartGet', async (req, res) => {
   let connection;
   try {
     connection = await mysql.createConnection(dbConfig);
@@ -62,7 +62,7 @@ app.get('/cartGet', async (req, res) => {
   }
 });
 
-app.get('/storageGet', async (req, res) => {
+app.get('/serenShop/storageGet', async (req, res) => {
   let connection;
   try {
     connection = await mysql.createConnection(dbConfig);
@@ -79,7 +79,7 @@ app.get('/storageGet', async (req, res) => {
   }
 });
 
-app.get('/usersGet', async (req, res) => {
+app.get('/serenShop/usersGet', async (req, res) => {
   let connection;
   try {
     connection = await mysql.createConnection(dbConfig);
@@ -96,7 +96,7 @@ app.get('/usersGet', async (req, res) => {
   }
 });
 
-app.post('/addUser', async (req, res) => {
+app.post('/serenShop/addUser', async (req, res) => {
   const { gmail, password, username, year } = req.body;
   let connection;
   try {
@@ -118,7 +118,7 @@ app.post('/addUser', async (req, res) => {
   }
 });
 
-app.delete('/api/cartDelete/:id', async (req, res) => {
+app.delete('/serenShop/api/cartDelete/:id', async (req, res) => {
   const { id } = req.params;
   let connection;
   try {
@@ -140,7 +140,7 @@ app.delete('/api/cartDelete/:id', async (req, res) => {
 });
 
 // Endpoint to fetch all cart items
-app.get('/api/data/:id', async (req, res) => {
+app.get('/serenShop/api/data/:id', async (req, res) => {
   const { id } = req.params; // Extract the ID from the URL
   let connection;
 
