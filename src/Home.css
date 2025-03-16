@@ -170,9 +170,13 @@ h2 {
 .searchBarInactive {
   height: 25px;
   width: 450px;
-  border-radius: 15px;
   border: none;
   padding: 5px 5px 5px 8px;
+  border: none; /* Removes default border */
+  border-bottom: 2px solid black; /* Adds only a bottom border */
+  padding: 5px; /* Optional: Adds spacing inside */
+  outline: none; /* Removes blue highlight on focus */
+  background-color: transparent;
 }
 
 #search:focus {
@@ -186,10 +190,11 @@ h2 {
   opacity: 0;
   text-decoration: none;
   list-style-type: none;
+
 }
 
-#searchItems li {
-  margin-left: 5px;
+#searchItems button {
+  padding-block: 5px;
   display:flex;
   flex-direction: column;
   position: relative;
@@ -199,6 +204,17 @@ h2 {
   text-decoration: none;
   list-style-type: none;
   z-index: 100;
+  border: none;
+  outline: none;
+  border-radius: 0;
+}
+
+#searchItems button:hover {
+  border: none;
+}
+
+#searchItems button:active {
+  background-color: rgba(219, 219, 219, 0.418);
 }
 
 .searchActive {

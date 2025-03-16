@@ -1,7 +1,6 @@
 .container {
     width: 80%;
     margin: 50px auto 50px auto;
-  
     list-style: none;
     padding: 0;
 
@@ -22,7 +21,16 @@
     border-radius: 5px;
     font-size: 20px;
     color: white;
-    background: rgba(141, 174, 224, 0.5);
+    background: rgba(82, 132, 206, 0.5);
     text-align: center;
   }
-  
+
+  button {
+    font-size: 1em;
+    font-weight: 500;
+    padding: 0px !important;
+    font-family: inherit;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    transition: border-color 0.25s;
+ }

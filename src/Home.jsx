@@ -4,7 +4,7 @@ import axios from "axios";
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import "./Home.css";
-import styles from "./Slider.module.css";
+import styles from "./slider.module.css";
 
 //npm run dev for startup
 
@@ -267,14 +267,15 @@ function Home() {
               id="search"
               value={inputValue}
               onChange={handleInputChange}
-            ></input>
+            >
+            </input>
             <div
               id="searchItems"
               className={isActive ? "searchActive" : "searchInactive"}
             >
               {filteredItems.length > 0
                 ? filteredItems.map((item, index) => (
-                    <li key={index}>{item}</li>
+                    <button className="searchedItems" key={index}>{item}</button>
                   ))
                 : null}
             </div>
@@ -430,8 +431,6 @@ function Home() {
           ))}
         </Slide>
       </div>
-
-
 
       {/*
 

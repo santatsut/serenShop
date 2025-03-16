@@ -66,14 +66,6 @@ a#title {
   text-decoration: none; /* Remove any underline if it’s applied */
 }
 
-.searchBarInactive {
-  height: 25px;
-  width: 450px;
-  border-radius: 15px;
-  border: none;
-  padding: 5px 5px 5px 8px;
-}
-
 .searchBarActive {
   height: 25px;
   width: 450px;
@@ -133,8 +125,6 @@ a#title {
   display: none;
 }
 
-
-
 .cartItem {
   display: flex;
   position: relative;
@@ -177,7 +167,7 @@ a#title {
   background-color: black;
   color: whitesmoke;
   margin-top: 20px;
-  
+  padding: 8px !important;
 }
 
 .topPartShoppingCart {
